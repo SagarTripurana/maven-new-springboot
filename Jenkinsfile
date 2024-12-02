@@ -44,7 +44,7 @@ pipeline {
                     sh """
                     curl -u $TOMCAT_USER:$TOMCAT_PASS \
                         -T $WAR_FILE \
-                        "$TOMCAT_URL/deploy?path=/your-app-name&update=true"
+                        "$TOMCAT_URL/deploy?path=/Springdemo-0.0.1-SNAPSHOT&update=true"
                     """
                 }
             }
