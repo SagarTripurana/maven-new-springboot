@@ -50,8 +50,8 @@ pipeline {
             steps {
                 script {
                     // Deploy WAR file to Tomcat using Tomcat Manager (ensure tomcat manager is installed and accessible)
-                    def warFile = 'target/your-app.war' // Update to your generated WAR file path
-                    def tomcatUrl = "http://localhost:8080/manager/text/deploy?path=/your-app&war=file://$PWD/$warFile"
+                    def warFile = 'target/Springdemo-0.0.1-SNAPSHOT.war' // Update to your generated WAR file path
+                    def tomcatUrl = "http://172.31.31.217:8080/manager/text/deploy?path=/Springdemo-0.0.1-SNAPSHOT&war=file://$PWD/$warFile"
                     
                     sh """
                     curl -u $TOMCAT_USERNAME:$TOMCAT_PASSWORD "$tomcatUrl"
