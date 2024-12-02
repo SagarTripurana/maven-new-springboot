@@ -3,10 +3,10 @@ pipeline {
     
     environment {
         // Set environment variables for GitHub and Tomcat
-        GIT_REPO = 'https://github.com/your-repo/your-project.git' // Change to your repo URL
-        TOMCAT_HOME = '/path/to/tomcat' // Change to your Tomcat installation path
-        TOMCAT_USERNAME = 'yourTomcatUsername' // Tomcat login username
-        TOMCAT_PASSWORD = 'yourTomcatPassword' // Tomcat login password
+        GIT_REPO = 'https://github.com/SagarTripurana/maven-new-springboot.git' // Change to your repo URL
+        TOMCAT_HOME = '/opt/tomcat' // Change to your Tomcat installation path
+        TOMCAT_USERNAME = 'admin' // Tomcat login username
+        TOMCAT_PASSWORD = 'password' // Tomcat login password
     }
 
     stages {
