@@ -17,7 +17,7 @@ pipeline {
         // Optional: GitHub credentials, use Jenkins credentials manager for more secure handling
         
     }
-
+#####
     stages {
         stage('Checkout Code') {
             steps {
