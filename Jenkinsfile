@@ -5,8 +5,8 @@ pipeline {
         // Set environment variables for GitHub and Tomcat
         GIT_REPO = 'https://github.com/SagarTripurana/maven-new-springboot.git' // Change to your repo URL
         TOMCAT_HOME = '/opt/tomcat' // Change to your Tomcat installation path
-        TOMCAT_USERNAME = 'sagar' // Tomcat login username
-        TOMCAT_PASSWORD = 'password' // Tomcat login password
+        TOMCAT_USER = 'sagar' // Tomcat login username
+        TOMCAT_PASS = 'password' // Tomcat login password
     }
 
     stages {
@@ -51,10 +51,12 @@ pipeline {
                 script {
                     // Deploy WAR file to Tomcat using Tomcat Manager (ensure tomcat manager is installed and accessible)
                     def warFile = 'target/Springdemo-0.0.1-SNAPSHOT.war' // Update to your generated WAR file path
-                    def tomcatUrl = "http://34.228.65.128:8080/manager/text/deploy?path=/Springdemo-0.0.1-SNAPSHOT"
+                    def tomcatUrl = "http://34.228.65.128:8080/manager/text"
                     
                     sh """
-                    curl -u $TOMCAT_USERNAME:$TOMCAT_PASSWORD "$tomcatUrl"
+                    curl -u $TOMCAT_USER:$TOMCAT_PASS \
+                        -T $WAR_FILE \
+                        "$TOMCAT_URL/deploy?path=/Springdemo-0.0.1-SNAPSHOT&update=true"
                     """
                 }
             }
