@@ -7,7 +7,7 @@ pipeline {
         GIT_BRANCH = 'main'  // Replace with the branch you want to use
 
         // Tomcat Manager details
-        TOMCAT_URL = 'http://34.228.65.128:8080/manager/text'
+        TOMCAT_URL = 'http://172.31.22.78:8080/manager/text'
         TOMCAT_USER = 'sagar'  // Replace with your Tomcat manager username
         TOMCAT_PASS = 'password'  // Replace with your Tomcat manager password
 
