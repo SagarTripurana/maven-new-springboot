@@ -1,47 +1,38 @@
 pipeline {
     agent any
-    
+
     environment {
-        // Set environment variables for GitHub and Tomcat
-        GIT_REPO = 'https://github.com/SagarTripurana/maven-new-springboot.git' // Change to your repo URL
-        TOMCAT_HOME = '/opt/tomcat' // Change to your Tomcat installation path
-        TOMCAT_USER = 'sagar' // Tomcat login username
-        TOMCAT_PASS = 'password' // Tomcat login password
+        // GitHub repository details
+        GIT_REPO = 'https://github.com/your-user/your-repo.git' // Replace with your repo
+        GIT_BRANCH = 'main'  // Replace with the branch you want to use
+
+        // Tomcat Manager details
+        TOMCAT_URL = 'http://your-tomcat-server:8080/manager/text'
+        TOMCAT_USER = 'admin'  // Replace with your Tomcat manager username
+        TOMCAT_PASS = 'admin_password'  // Replace with your Tomcat manager password
+
+        // Path to your WAR file (change if necessary)
+        WAR_FILE = 'target/your-application.war'
+
+        // Optional: GitHub credentials, use Jenkins credentials manager for more secure handling
+        GITHUB_CREDENTIALS = credentials('your-github-credentials-id')
     }
 
     stages {
         stage('Checkout Code') {
             steps {
                 script {
-                    // Checkout the latest code from GitHub
-                    git branch: 'main', url: "$GIT_REPO"
-                }
-            }
-        }
-        
-        stage('Build') {
-            steps {
-                script {
-                    // Run Maven build (use Gradle or other build tool if needed)
-                    sh 'mvn clean install -DskipTests=true' // Adjust if you're using Gradle
-                }
-            }
-        }
-        
-        stage('Test') {
-            steps {
-                script {
-                    // Run Maven tests
-                    sh 'mvn test'
+                    // Checkout the code from GitHub repository
+                    git branch: GIT_BRANCH, url: GIT_REPO, credentialsId: 'your-github-credentials-id'
                 }
             }
         }
 
-        stage('Package WAR') {
+        stage('Build and Test') {
             steps {
                 script {
-                    // Package the application into a WAR file
-                    sh 'mvn package'
+                    // Run Maven to build and test the project
+                    sh 'mvn clean install'  // Adjust to your build tool (e.g., Maven or Gradle)
                 }
             }
         }
@@ -49,14 +40,11 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 script {
-                    // Deploy WAR file to Tomcat using Tomcat Manager (ensure tomcat manager is installed and accessible)
-                    def warFile = 'target/Springdemo-0.0.1-SNAPSHOT.war' // Update to your generated WAR file path
-                    def tomcatUrl = "http://34.228.65.128:8080/manager/text"
-                    
+                    // Deploy the WAR file to Tomcat using curl
                     sh """
                     curl -u $TOMCAT_USER:$TOMCAT_PASS \
                         -T $WAR_FILE \
-                        "$TOMCAT_URL/deploy?path=/Springdemo-0.0.1-SNAPSHOT&update=true"
+                        "$TOMCAT_URL/deploy?path=/your-app-name&update=true"
                     """
                 }
             }
@@ -65,10 +53,10 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline executed successfully!'
+            echo 'Deployment to Tomcat was successful!'
         }
         failure {
-            echo 'Pipeline failed. Check logs for errors.'
+            echo 'Deployment failed!'
         }
     }
 }
