@@ -3,19 +3,19 @@ pipeline {
 
     environment {
         // GitHub repository details
-        GIT_REPO = 'https://github.com/your-user/your-repo.git' // Replace with your repo
+        GIT_REPO = 'https://github.com/SagarTripurana/maven-new-springboot.git' // Replace with your repo
         GIT_BRANCH = 'main'  // Replace with the branch you want to use
 
         // Tomcat Manager details
-        TOMCAT_URL = 'http://your-tomcat-server:8080/manager/text'
-        TOMCAT_USER = 'admin'  // Replace with your Tomcat manager username
-        TOMCAT_PASS = 'admin_password'  // Replace with your Tomcat manager password
+        TOMCAT_URL = 'http://34.228.65.128:8080/manager/text'
+        TOMCAT_USER = 'sagar'  // Replace with your Tomcat manager username
+        TOMCAT_PASS = 'password'  // Replace with your Tomcat manager password
 
         // Path to your WAR file (change if necessary)
-        WAR_FILE = 'target/your-application.war'
+        WAR_FILE = 'target/Springdemo-0.0.1-SNAPSHOT.war'
 
         // Optional: GitHub credentials, use Jenkins credentials manager for more secure handling
-        GITHUB_CREDENTIALS = credentials('your-github-credentials-id')
+        
     }
 
     stages {
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     // Checkout the code from GitHub repository
-                    git branch: GIT_BRANCH, url: GIT_REPO, credentialsId: 'your-github-credentials-id'
+                    git branch: GIT_BRANCH, url: GIT_REPO
                 }
             }
         }
